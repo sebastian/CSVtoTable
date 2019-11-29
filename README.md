@@ -31,3 +31,8 @@ This tool makes a lot of assumptions:
 - the columns type are one of: `text`, `integer`, `double` or `boolean`
 - the file name should be the table name
 - `;` is used as a column separator
+
+## How to build
+
+You can build and test the tool with `dotnet run`.
+To create a release for Linux or macOS, run `make publish`.
