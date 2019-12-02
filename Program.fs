@@ -109,7 +109,7 @@ let allConsistent =
 let typeToHuman =
   function
   | Int -> "int"
-  | Real -> "double"
+  | Real -> "real"
   | PotentiallyBool -> "boolean"
   | Text -> "text"
   | NULL -> failwith "Unexpectedly failed... should have weeded out null values"

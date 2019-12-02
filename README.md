@@ -19,8 +19,8 @@ $ ./TableCreator test/data1.csv
     "TEXT2" text,
     "BOOL_COLUMN" boolean,
     "INTEGER" int,
-    "FLOAT_DOT" double,
-    "FLOAT_COMMA" double,
+    "FLOAT_DOT" real,
+    "FLOAT_COMMA" real,
     "LOOKS_LIKE_BOOL" int
   )
  ``` 
@@ -28,7 +28,7 @@ $ ./TableCreator test/data1.csv
 ## Assumptions
 
 This tool makes a lot of assumptions:
-- the columns type are one of: `text`, `integer`, `double` or `boolean`
+- the columns type are one of: `text`, `integer`, `real` or `boolean`
 - the file name should be the table name
 - `;` is used as a column separator
 
