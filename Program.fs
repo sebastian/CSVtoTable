@@ -71,17 +71,22 @@ let guessType (value: string) =
   | LikelyText _ -> Text
   | _ -> UnknownOrUnexpectedlyInconsistent
 
+let equivalenceClasses a b =
+  match List.sort [a; b] with
+  | [a; b] when a = b -> Some a
+  | [other; NULL] -> Some other
+  | [Int; Real] -> Some Real
+  | [Int; PotentiallyBool] -> Some Int
+  | [Real; PotentiallyBool] -> Some Real
+  | _ -> None
+
 let guessAndValidate (value, guesses) =
   let newGuess = guessType value
   match guesses with
   | Consistent (currentGuess, count) ->
-    match currentGuess, newGuess with
-    | NULL, _ -> Consistent (newGuess, count + 1)
-    | _, NULL -> Consistent (currentGuess, count + 1)
-    | Int, PotentiallyBool -> Consistent (Int, count + 1)
-    | PotentiallyBool, Int -> Consistent (Int, count + 1)
-    | a, b when a = b -> Consistent (currentGuess, count + 1)
-    | _ -> Inconsistent <| Map.ofList [(currentGuess, count); (newGuess, 1)]
+    match equivalenceClasses newGuess currentGuess with
+    | Some validClass -> Consistent (validClass, count + 1)
+    | None -> Inconsistent <| Map.ofList [(currentGuess, count); (newGuess, 1)]
   | Inconsistent guesses ->
     let newGuess = guessType value
     guesses
